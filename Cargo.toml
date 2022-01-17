@@ -2,8 +2,7 @@
 name = "starter"
 version = "0.1.0"
 authors = ["nazgull08 <nazgull08@protonmail.com>"]
-edition = "2018"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+edition = "2021"
 
 [dependencies]
+sdl2 = "0.35.1"
