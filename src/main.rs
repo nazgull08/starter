@@ -23,7 +23,9 @@ pub fn main() {
     let mut canvas = window.into_canvas().build().unwrap();
 
     let mut h:Hero = Hero{name:String::from("Dog"),positionX:200,positionY:200};
+    let mut m:Hero = Hero{name:String::from("Mouse"),positionX:100,positionY:100};
     let mut heroRect = Rect::new(h.positionX,h.positionY,30,30);
+    let mut mousRect = Rect::new(m.positionX,m.positionY,20,20);
     let mut movement:(Movement,Movement) = (Movement::Stop,Movement::Stop);
 
     'running: loop {
@@ -38,10 +40,13 @@ pub fn main() {
             _ => {}
         }
         heroRect = Rect::new(h.positionX,h.positionY,30,30);
+        mousRect = Rect::new(m.positionX,m.positionY,20,20);
         canvas.set_draw_color(Color::RGB(255, 59, 50));
         canvas.clear();
         canvas.set_draw_color(Color::RGB(255, 255, 255));
         canvas.fill_rect(heroRect);
+        canvas.set_draw_color(Color::RGB(0, 150, 0));
+        canvas.fill_rect(mousRect);
 
         for event in event_pump.poll_iter() {
             match event {
@@ -75,9 +80,14 @@ pub fn main() {
                 },
                 Event::KeyUp { keycode: Some(Keycode::Space), ..} => {
                 },
+                Event::MouseMotion {x,y,..} =>{
+                    println!("mousemove!!!");
+                    m.positionX = x;
+                    m.positionY = y;
+                }
                 _ => {}
             }
-        }
+       }
 
         canvas.present();
         ::std::thread::sleep(Duration::new(0, 1_000_000_000u32 / 100));
