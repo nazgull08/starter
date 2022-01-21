@@ -35,8 +35,8 @@ pub fn main() {
         heroRect = Rect::new(h.positionX,h.positionY,30,30);
         canvas.set_draw_color(Color::RGB(255, 59, 50));
         canvas.clear();
-        canvas.set_draw_color(Color::RGB(0, 0, 0));
-        canvas.draw_rect(heroRect);
+        canvas.set_draw_color(Color::RGB(255, 255, 255));
+        canvas.fill_rect(heroRect);
 
         for event in event_pump.poll_iter() {
             match event {
@@ -68,13 +68,13 @@ pub fn main() {
                 Event::KeyUp { keycode: Some(Keycode::Down), .. } => {
                     movement.1=Movement::Stop;
                 },
-                Event::KeyDown { keycode: Some(Keycode::Space), ..} => {
-                     let mut window2 = video_subsystem.window("starter", 1920, 1080)
-                            .position_centered()
-                            .build()
-                            .unwrap();
-                     canvas = window2.into_canvas().build().unwrap();
-                },
+//                Event::KeyDown { keycode: Some(Keycode::Space), ..} => {
+//                     let mut window2 = video_subsystem.window("starter", 1920, 1080)
+//                            .position_centered()
+//                            .build()
+//                            .unwrap();
+//                     canvas = window2.into_canvas().build().unwrap();
+//                },
                 _ => {}
             }
         }
