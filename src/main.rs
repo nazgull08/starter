@@ -67,7 +67,14 @@ pub fn main() {
                 },
                 Event::KeyUp { keycode: Some(Keycode::Down), .. } => {
                     movement.1=Movement::Stop;
-                }|
+                },
+                Event::KeyDown { keycode: Some(Keycode::Space), ..} => {
+                     let window2 = video_subsystem.window("starter", 1000, 1000)
+                            .position_centered()
+                            .build()
+                            .unwrap();
+                      canvas = window2.into_canvas().build().unwrap();
+                },
                 _ => {}
             }
         }
@@ -76,7 +83,11 @@ pub fn main() {
         ::std::thread::sleep(Duration::new(0, 1_000_000_000u32 / 300));
     }
 
+    fn myfunc() -> (){
+        println!("111");
+    }
 }
+
 
 struct Hero {
     name: String,
