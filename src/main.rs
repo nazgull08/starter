@@ -3,6 +3,7 @@ use sdl2::event::Event;
 use sdl2::keyboard::Keycode;
 use sdl2::rect::{Rect,Point};
 use std::time::Duration;
+use sdl2::video::{Window, WindowPos};
 
 pub fn main() {
     let mut end:bool = false;
@@ -36,7 +37,7 @@ pub fn main() {
         canvas.set_draw_color(Color::RGB(255, 59, 50));
         canvas.clear();
         canvas.set_draw_color(Color::RGB(0, 0, 0));
-        canvas.draw_rect(heroRect);
+        canvas.fill_rect(heroRect);
 
         for event in event_pump.poll_iter() {
             match event {
@@ -47,7 +48,7 @@ pub fn main() {
                 Event::KeyDown { keycode: Some(Keycode::Left), .. } => {
                     movement.0=Movement::Back;
                 },
-                Event::KeyUp { keycode: Some(Keycode::Left), .. } => {
+                  Event::KeyUp { keycode: Some(Keycode::Left), .. } => {
                     movement.0=Movement::Stop;
                 },
                 Event::KeyDown { keycode: Some(Keycode::Right), .. } => {
@@ -68,12 +69,17 @@ pub fn main() {
                 Event::KeyUp { keycode: Some(Keycode::Down), .. } => {
                     movement.1=Movement::Stop;
                 },
-                Event::KeyDown { keycode: Some(Keycode::Space), ..} => {
-                     let mut window2 = video_subsystem.window("starter", 1920, 1080)
-                            .position_centered()
-                            .build()
-                            .unwrap();
-                     canvas = window2.into_canvas().build().unwrap();
+                Event::KeyUp { keycode: Some(Keycode::Space), ..} => {
+                    let mut ss = match video_subsystem.current_display_mode(0) {
+                            Ok(dm) => dm,
+                            Err(e) => return ()
+                    };
+                    println!("lalala!");
+                    println!("display mode: {}, {}",ss.w,ss.h);
+                    let mut sW: u32 = ss.w as u32;
+                    let mut sH: u32 = ss.h as u32;
+                    let mut window2 = video_subsystem.window("Starter",sW,sH).build().unwrap();
+                    canvas = window2.into_canvas().build().unwrap();
                 },
                 _ => {}
             }
