@@ -11,12 +11,20 @@ pub fn main() {
     let video_subsystem = sdl_context.video().unwrap();
     let mut event_pump = sdl_context.event_pump().unwrap();
 
+    let mut ss = match video_subsystem.current_display_mode(0) {
+            Ok(dm) => dm,
+            Err(e) => return ()
+    };
+    let mut sW: u32 = ss.w as u32;
+    let mut sH: u32 = ss.h as u32;
+
+    let mut window2 = video_subsystem.window("Starter",sW,sH).build().unwrap();
     let window = video_subsystem.window("starter", 800, 600)
         .position_centered()
         .build()
         .unwrap();
 
-    let mut canvas = window.into_canvas().build().unwrap();
+    let mut canvas = window2.into_canvas().build().unwrap();
 
     let mut h:Hero = Hero{name:String::from("Dog"),positionX:200,positionY:200};
     let mut heroRect = Rect::new(h.positionX,h.positionY,30,30);
@@ -70,17 +78,6 @@ pub fn main() {
                     movement.1=Movement::Stop;
                 },
                 Event::KeyUp { keycode: Some(Keycode::Space), ..} => {
-                    let mut ss = match video_subsystem.current_display_mode(0) {
-                            Ok(dm) => dm,
-                            Err(e) => return ()
-                    };
-                    println!("lalala!");
-                    println!("display mode: {}, {}",ss.w,ss.h);
-                    let mut sW: u32 = ss.w as u32;
-                    let mut sH: u32 = ss.h as u32;
-
-                    let mut window2 = video_subsystem.window("Starter",sW,sH).build().unwrap();
-                    canvas = window2.into_canvas().build().unwrap();
                 },
                 _ => {}
             }
