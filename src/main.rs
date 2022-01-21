@@ -18,13 +18,9 @@ pub fn main() {
     let mut sW: u32 = ss.w as u32;
     let mut sH: u32 = ss.h as u32;
 
-    let mut window2 = video_subsystem.window("Starter",sW,sH).build().unwrap();
-    let window = video_subsystem.window("starter", 800, 600)
-        .position_centered()
-        .build()
-        .unwrap();
+    let mut window = video_subsystem.window("Starter",sW,sH).build().unwrap();
 
-    let mut canvas = window2.into_canvas().build().unwrap();
+    let mut canvas = window.into_canvas().build().unwrap();
 
     let mut h:Hero = Hero{name:String::from("Dog"),positionX:200,positionY:200};
     let mut heroRect = Rect::new(h.positionX,h.positionY,30,30);
@@ -84,12 +80,9 @@ pub fn main() {
         }
 
         canvas.present();
-        ::std::thread::sleep(Duration::new(0, 1_000_000_000u32 / 300));
+        ::std::thread::sleep(Duration::new(0, 1_000_000_000u32 / 100));
     }
 
-    fn myfunc() -> (){
-        println!("111");
-    }
 }
 
 
