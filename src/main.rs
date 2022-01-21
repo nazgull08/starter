@@ -69,11 +69,11 @@ pub fn main() {
                     movement.1=Movement::Stop;
                 },
                 Event::KeyDown { keycode: Some(Keycode::Space), ..} => {
-                     let window2 = video_subsystem.window("starter", 1000, 1000)
+                     let mut window2 = video_subsystem.window("starter", 1920, 1080)
                             .position_centered()
                             .build()
                             .unwrap();
-                      canvas = window2.into_canvas().build().unwrap();
+                     canvas = window2.into_canvas().build().unwrap();
                 },
                 _ => {}
             }
