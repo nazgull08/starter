@@ -23,7 +23,7 @@ pub fn main() {
     let mut canvas = window.into_canvas().build().unwrap();
 
     let mut h:Hero = Hero{name:String::from("Dog"),positionX:200,positionY:200};
-    let mut heroRect = Rect::new(h.positionX,h.positionY,30,30);
+    let mut heroRect = Rect::new(h.positionX,h.positionY,1,1);
     let mut movement:(Movement,Movement) = (Movement::Stop,Movement::Stop);
 
     'running: loop {
@@ -37,7 +37,7 @@ pub fn main() {
             Movement::Back => {h.positionY-=1;}
             _ => {}
         }
-        heroRect = Rect::new(h.positionX,h.positionY,30,30);
+        heroRect = Rect::new(h.positionX,h.positionY,60,60);
         canvas.set_draw_color(Color::RGB(255, 59, 50));
         canvas.clear();
         canvas.set_draw_color(Color::RGB(255, 255, 255));
