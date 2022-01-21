@@ -78,6 +78,7 @@ pub fn main() {
                     println!("display mode: {}, {}",ss.w,ss.h);
                     let mut sW: u32 = ss.w as u32;
                     let mut sH: u32 = ss.h as u32;
+
                     let mut window2 = video_subsystem.window("Starter",sW,sH).build().unwrap();
                     canvas = window2.into_canvas().build().unwrap();
                 },
