@@ -4,5 +4,13 @@ version = "0.1.0"
 authors = ["nazgull08 <nazgull08@protonmail.com>"]
 edition = "2021"
 
+[dependencies.sdl2]
+version = "^0.35.1"
+
+[features]
+unsafe_textures = []
+default = []
+ttf = ["sdl2/ttf"]
+
 [dependencies]
-sdl2 = "0.35.1"
+rand = "^0.8.4"
