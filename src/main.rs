@@ -32,6 +32,10 @@ pub fn main() {
 
     let mut canvas = window.into_canvas().build().unwrap();
 
+
+    let mut  click:(i32,i32,sdl2::mouse::MouseButton);
+
+
     let mut h:Hero = Hero{name:String::from("Dog"), color:hColor,positionX:200,positionY:200};
     let mut m:Hero = Hero{name:String::from("Mouse"), color:mColor,positionX:100,positionY:100};
     let mut heroRect = Rect::new(h.positionX,h.positionY,30,30);
@@ -97,6 +101,16 @@ pub fn main() {
                 Event::MouseMotion {x,y,..} =>{
                     m.positionX = x;
                     m.positionY = y;
+                }
+                Event::MouseButtonDown {x,y,mouse_btn,..} =>{
+                    click = (x,y,mouse_btn);
+                    if (mouse_btn == sdl2::mouse::MouseButton::Left){
+                        h.positionX = x;
+                        h.positionY = y;
+                    }
+                    if (mouse_btn == sdl2::mouse::MouseButton::Right){
+                        h.color = Color::RGB(255,0,0);
+                    }
                 }
                 _ => {}
             }
