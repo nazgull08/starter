@@ -33,23 +33,15 @@ pub fn main() {
     let mut window = video_subsystem.window("Starter",sW,sH).build().unwrap();
 
     let mut canvas = window.into_canvas().build().unwrap();
-    
 
 //======================Images=========================================
 
     let bgPath: &Path = (Path::new("./res/img/twin.png"));
     let marinePath: &Path = (Path::new("./res/img/smallmarine.png"));
-    
 
     let texture_creator = canvas.texture_creator();
     let bg = texture_creator.load_texture(bgPath).unwrap();
     let marine = texture_creator.load_texture(marinePath).unwrap();
-
-
-
-
-
-
 
 
 //=====================================================================
