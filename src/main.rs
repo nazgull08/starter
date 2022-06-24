@@ -1,4 +1,7 @@
+mod terrain;
+
 extern crate sdl2;
+extern crate nalgebra as na;
 
 use sdl2::pixels::Color;
 use sdl2::event::Event;
@@ -10,6 +13,7 @@ use sdl2::render::TextureQuery;
 use sdl2::image::{InitFlag, LoadTexture};
 use rand::Rng;
 use std::path::Path;
+
 
 pub fn main() {
     let mut end:bool = false;
