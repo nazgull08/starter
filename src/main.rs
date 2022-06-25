@@ -1,4 +1,7 @@
+mod terrain;
+
 extern crate sdl2;
+extern crate nalgebra as na;
 
 use sdl2::pixels::Color;
 use sdl2::event::Event;
@@ -10,6 +13,7 @@ use sdl2::render::TextureQuery;
 use sdl2::image::{InitFlag, LoadTexture};
 use rand::Rng;
 use std::path::Path;
+
 
 pub fn main() {
     let mut end:bool = false;
@@ -35,7 +39,6 @@ pub fn main() {
     let mut window = video_subsystem.window("Starter",sW,sH).build().unwrap();
 
     let mut canvas = window.into_canvas().build().unwrap();
-    
 
 //======================Images=========================================
 
@@ -44,6 +47,8 @@ pub fn main() {
     let marinebPath : &Path = (Path::new("./res/img/smallmarineb.png"));
     let floorPath : &Path = (Path::new("./res/img/floor/isoTest1.png"));
     let wall1Path : &Path = (Path::new("./res/img/floor/isoWall1.png"));
+    let bgPath: &Path = (Path::new("./res/img/twin.png"));
+    let marinePath: &Path = (Path::new("./res/img/smallmarine.png"));
 
     let texture_creator = canvas.texture_creator();
 
@@ -52,6 +57,7 @@ pub fn main() {
     let marineb = texture_creator.load_texture(marinebPath).unwrap();
     let floor = texture_creator.load_texture(floorPath).unwrap();
     let wall1 = texture_creator.load_texture(wall1Path).unwrap();
+
 
 //=====================================================================
 
