@@ -13,6 +13,8 @@ use std::path::Path;
 
 pub fn main() {
     let mut end:bool = false;
+    let mut marineCounter : u8 = 0;
+
     let mut rng = rand::thread_rng();
 
     let sdl_context = sdl2::init().unwrap();
@@ -37,20 +39,19 @@ pub fn main() {
 
 //======================Images=========================================
 
-    let bgPath: &Path = (Path::new("./res/img/twin.png"));
-    let marinePath: &Path = (Path::new("./res/img/smallmarine.png"));
-    
+    let bgPath : &Path = (Path::new("./res/img/twin.png"));
+    let marinePath : &Path = (Path::new("./res/img/smallmarine.png"));
+    let marinebPath : &Path = (Path::new("./res/img/smallmarineb.png"));
+    let floorPath : &Path = (Path::new("./res/img/floor/isoTest1.png"));
+    let wall1Path : &Path = (Path::new("./res/img/floor/isoWall1.png"));
 
     let texture_creator = canvas.texture_creator();
+
     let bg = texture_creator.load_texture(bgPath).unwrap();
     let marine = texture_creator.load_texture(marinePath).unwrap();
-
-
-
-
-
-
-
+    let marineb = texture_creator.load_texture(marinebPath).unwrap();
+    let floor = texture_creator.load_texture(floorPath).unwrap();
+    let wall1 = texture_creator.load_texture(wall1Path).unwrap();
 
 //=====================================================================
 
@@ -67,6 +68,16 @@ pub fn main() {
     let mut heroRect = Rect::new(h.positionX,h.positionY,100,100);
     let mut mousRect = Rect::new(m.positionX,m.positionY,20,20);
     let mut movement:(Movement,Movement) = (Movement::Stop,Movement::Stop);
+    let mut heroTexture = &marine;  
+
+
+    let ship = [Rect::new(400,400,150,100),Rect::new(550,400,150,100),Rect::new(700,400,150,100),Rect::new(850,400,150,100),
+                Rect::new(475,445,150,100),Rect::new(625,445,150,100),Rect::new(775,445,150,100),Rect::new(925,445,150,100),
+                Rect::new(550,490,150,100),Rect::new(700,490,150,100),Rect::new(850,490,150,100),Rect::new(1000,490,150,100),
+                Rect::new(625,535,150,100),Rect::new(775,535,150,100),Rect::new(925,535,150,100),Rect::new(1075,535,150,100)
+    ];
+
+
 
     'running: loop {
         match movement.0 {
@@ -85,7 +96,17 @@ pub fn main() {
         canvas.clear();
         canvas.copy(&bg, None, None);
         canvas.set_draw_color(h.color);
-        canvas.copy(&marine, None, heroRect);
+        for fl in ship{
+            canvas.copy(&floor,None, fl);
+        };
+        if marineCounter<=15 {
+            heroTexture = &marine;
+        }
+        else{
+            heroTexture = &marineb;
+        };
+
+        canvas.copy(heroTexture, None, heroRect);
         canvas.set_draw_color(m.color);
         canvas.fill_rect(mousRect);
 
@@ -144,7 +165,11 @@ pub fn main() {
        }
 
         canvas.present();
-        ::std::thread::sleep(Duration::new(0, 1_000_000_000u32 / 100));
+        marineCounter+=1;
+        if marineCounter >= 30 {
+            marineCounter = 0;
+        }
+        ::std::thread::sleep(Duration::new(0, 1_000_000_000u32 / 500));
     }
 
 }
