@@ -169,7 +169,7 @@ pub fn main() {
                 _ => {}
             }
        }
-
+        drawTerrain();
         canvas.present();
         marineCounter+=1;
         if marineCounter >= 30 {
