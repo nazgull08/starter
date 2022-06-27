@@ -4,6 +4,7 @@ version = "0.1.0"
 authors = ["nazgull08 <nazgull08@protonmail.com>"]
 edition = "2021"
 
+
 [dependencies.sdl2]
 version = "^0.35.1"
 features = ["image","ttf"]
@@ -16,3 +17,5 @@ ttf = ["sdl2/ttf"]
 [dependencies]
 rand = "^0.8.4"
 nalgebra = "^0.31.0"
+blue_engine = "^0.3.31"
+anyhow = "^1.0"

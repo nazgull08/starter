@@ -1,7 +1,8 @@
-use na::{Vector3, Rotation3};
+use na;
 
 
-struct Terrain{
+pub struct Terrain{
     map: na::Vector3<i32>,
     payload: i32
 }
+
