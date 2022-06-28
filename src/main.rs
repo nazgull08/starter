@@ -21,8 +21,8 @@ use blue_engine::{
 
 fn main() -> anyhow::Result<()> {
     let mut engine = Engine::new(WindowDescriptor {
-        width: 1500,
-        height: 1000,
+        width: 150,
+        height: 100,
         title: "Fly Camera",
         ..Default::default()
     })?;
