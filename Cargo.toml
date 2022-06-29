@@ -17,5 +17,4 @@ ttf = ["sdl2/ttf"]
 [dependencies]
 rand = "^0.8.4"
 nalgebra = "^0.31.0"
-blue_engine = "^0.3.31"
-anyhow = "^1.0"
+bevy = "^0.7.0"

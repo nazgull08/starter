@@ -1,37 +1,51 @@
-with import ./nix/pkgs.nix {};
+{ pkgs ? import <nixpkgs> {            config.allowUnfree = true; } }:
 
-stdenv.mkDerivation rec {
-  name = "starter";
-  env = buildEnv { name = name; paths = buildInputs; };
+let
+  fenix = import (fetchTarball "https://github.com/nix-community/fenix/archive/main.tar.gz") { };
+in
 
-  nativeBuildInputs = [
-              pkgconfig
-              clang
-              lld # To use lld linker
-            ];
 
-  buildInputs = [
-              rustup
-              pre-commit
-              udev
-              #NOTE Add more deps
-              vulkan-loader
-              xorg.libX11
-              x11
-              xorg.libXrandr
-              xorg.libXcursor
-              xorg.libXi
-              SDL2
-              SDL2_mixer
-              SDL2_image
-              SDL2_ttf
-            ];
-  shellHook = ''
-              export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${
-                pkgs.lib.makeLibraryPath [
-                  udev
-                  alsaLib
-                  vulkan-loader
-                ]
-              }"'';
+pkgs.mkShell {
+  shellHook = ''export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${pkgs.lib.makeLibraryPath [
+    pkgs.alsaLib
+    pkgs.udev
+    pkgs.vulkan-loader
+  ]}"'';
+
+  buildInputs = with pkgs; [
+    (
+      with fenix;
+      combine (
+        with default; [
+          cargo
+          clippy-preview
+          latest.rust-src
+          rust-analyzer
+          rust-std
+          rustc
+          rustfmt-preview
+        ]
+      )
+    )
+    cargo-edit
+    cargo-watch
+
+    lld
+    clang
+
+    # # bevy-specific deps (from https://github.com/bevyengine/bevy/blob/main/docs/linux_dependencies.md)
+    pkgconfig
+    udev
+    alsaLib
+    lutris
+    xlibsWrapper
+    xorg.libXcursor
+    xorg.libXrandr
+    xorg.libXi
+    vulkan-tools
+    vulkan-headers
+    vulkan-loader
+    vulkan-validation-layers
+  ];
+
 }
